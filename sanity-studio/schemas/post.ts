@@ -14,7 +14,7 @@ export default {
     {
       title: 'Photo',
       name: 'photo',
-      type: 'string',
+      type: 'image',
     },
     {
       title: 'Likes',
@@ -54,4 +54,27 @@ export default {
       ],
     },
   ],
+  preview: {
+    select: {
+      title: 'comments.0.comment',
+      authorName: 'author.name',
+      authorUsername: 'author.username',
+      media: 'photo',
+    },
+    prepare(selection: Props) {
+      const {title, authorName, authorUsername, media} = selection
+      return {
+        title,
+        subtitle: `by ${authorName} (${authorUsername})`,
+        media,
+      }
+    },
+  },
+}
+
+interface Props {
+  title: string
+  authorName: string
+  authorUsername: string
+  media: string
 }

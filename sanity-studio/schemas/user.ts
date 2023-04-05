@@ -23,7 +23,7 @@ export default {
     {
       title: 'Image',
       name: 'image',
-      type: 'string',
+      type: 'image',
     },
     {
       title: 'Followers',
@@ -40,4 +40,10 @@ export default {
       validation: (Rule: Rule) => Rule.unique(),
     },
   ],
+  preview: {
+    select: {
+      title: 'name',
+      subtitle: 'username',
+    },
+  },
 }
