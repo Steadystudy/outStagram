@@ -12,7 +12,7 @@ export const metadata = {
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="en" className={sans.className}>
-      <body>
+      <body className="w-full max-w-screen-xl overflow-auto mx-auto">
         <Header />
         {children}
       </body>

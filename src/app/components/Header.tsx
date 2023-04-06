@@ -12,17 +12,21 @@ export default function Header() {
 
   const pathname = usePathname();
   return (
-    <header>
-      <Link href="/">Outstagram</Link>
-      <nav>
-        <ul>
-          {navList.map(({ icon, iconFill, link }) => (
-            <li key={link}>
-              <Link href={link}>{pathname === link ? iconFill : icon}</Link>
-            </li>
-          ))}
-        </ul>
-      </nav>
+    <header className="sticky top-0 bg-white z-10 border-b border-gray-hot px-6">
+      <div className="flex justify-between items-center">
+        <Link href="/">
+          <h1 className="text-pink-light text-2xl font-bold">Outstagram</h1>
+        </Link>
+        <nav>
+          <ul className="flex gap-4 items-center p-4">
+            {navList.map(({ icon, iconFill, link }) => (
+              <li key={link}>
+                <Link href={link}>{pathname === link ? iconFill : icon}</Link>
+              </li>
+            ))}
+          </ul>
+        </nav>
+      </div>
     </header>
   );
 }
