@@ -10,6 +10,7 @@ module.exports = {
       'gray-light': '#E2E4E4',
       'gray-hot': '#808080',
       'green-light': '#B8F3B8',
+      white: '#fff',
     },
   },
   plugins: [],

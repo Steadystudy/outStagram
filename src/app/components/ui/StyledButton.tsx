@@ -5,8 +5,13 @@ type Props = {
 
 export default function StyledButton({ text, onClick }: Props) {
   return (
-    <div>
-      <button onClick={onClick}>{text}</button>
+    <div className="rounded-md bg-gradient-to-r from-pink-hot via-pink-light to-yellow-light p-[0.2rem]">
+      <button
+        className="bg-white rounded-sm p-[0.1rem] hover:opacity-75 transition-opacity"
+        onClick={onClick}
+      >
+        {text}
+      </button>
     </div>
   );
 }
