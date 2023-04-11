@@ -3,16 +3,16 @@ import Avatar from './Avatar';
 
 export default function Sidebar({ user: { image, username, name } }: { user: User }) {
   return (
-    <section>
-      <div>
+    <>
+      <div className="flex items-center mt-8">
         {image && <Avatar border={false} size="md" image={image} />}
-        <div>
-          <h3>{username}</h3>
-          <p>{name}</p>
+        <div className="ml-4">
+          <h3 className="font-bold">{username}</h3>
+          <p className="text-gray-hot leading-4">{name}</p>
         </div>
       </div>
-      <p>About ﹒ Help ﹒ API</p>
-      <p>@Copyright OUTSTAGRAM from METAL</p>
-    </section>
+      <p className="text-gray-hot mt-4">About ﹒ Help ﹒ API</p>
+      <p className="font-bold mt-4">@Copyright OUTSTAGRAM from METAL</p>
+    </>
   );
 }
