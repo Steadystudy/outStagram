@@ -14,7 +14,7 @@ export default function Avatar({ image, size = 'sm', border = true }: Props) {
       {/* eslint-disable-next-line @next/next/no-img-element */}
       <img
         src={image ?? undefined}
-        className="rounded-full border-2 border-white"
+        className="rounded-full object-cover border-2 border-white"
         alt={'user profile'}
         referrerPolicy="no-referrer"
       />
