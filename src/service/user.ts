@@ -36,7 +36,13 @@ export async function getUserByUsername(username: string) {
     )
     .then((user: DetailUser) => ({
       ...user,
-      followers: user.followers.map((follower) => ({ ...follower, image: urlFor(follower.image) })),
-      following: user.following.map((follow) => ({ ...follow, image: urlFor(follow.image) })),
+      followers: user.followers.map((follower) => ({
+        ...follower,
+        image: urlFor(follower.image || ''),
+      })),
+      following: user.following.map((follow) => ({
+        ...follow,
+        image: urlFor(follow.image || ''),
+      })),
     }));
 }
