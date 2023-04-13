@@ -33,6 +33,13 @@ export default {
       validation: (Rule: Rule) => Rule.unique(),
     },
     {
+      title: 'Following',
+      name: 'following',
+      type: 'array',
+      of: [{type: 'reference', to: [{type: 'user'}]}],
+      validation: (Rule: Rule) => Rule.unique(),
+    },
+    {
       title: 'Bookmarks',
       name: 'bookmarks',
       type: 'array',
