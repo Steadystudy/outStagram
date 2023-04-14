@@ -9,7 +9,7 @@ export default function Avatar({ image, size = 'sm', border = true }: Props) {
     <div
       className={`rounded-full 
       ${border ? 'bg-gradient-to-tr from-yellow-light via-pink-light to-pink-hot' : ''}
-      ${size === 'sm' ? `p-[0.15rem] w-10 h-10` : `p-[0.2rem] w-14 h-14`}`}
+      ${size === 'sm' ? `p-[0.15rem] w-10 h-10` : `p-[0.2rem] w-16 h-16`}`}
     >
       {/* eslint-disable-next-line @next/next/no-img-element */}
       <img

@@ -18,7 +18,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <AuthContext>
           <Header />
           <SWRConfigContext>
-            <main>{children}</main>
+            <main className="w-full flex justify-center min-h-full">{children}</main>
           </SWRConfigContext>
         </AuthContext>
       </body>
