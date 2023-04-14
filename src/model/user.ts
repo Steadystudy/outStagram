@@ -5,6 +5,10 @@ export type User = {
   image?: string;
 };
 
+export type OAuthUser = User & {
+  id: string;
+};
+
 export type SimpleUser = Pick<User, 'username' | 'image'>;
 
 export type DetailUser = User & {
