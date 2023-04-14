@@ -6,7 +6,7 @@ import useSWR from 'swr';
 import Avatar from './Avatar';
 
 export default function FollowingBar() {
-  const { data, isLoading, error } = useSWR<DetailUser>('/api/posts');
+  const { data, isLoading, error } = useSWR<DetailUser>('/api/me');
   const users = data?.following;
 
   return (
