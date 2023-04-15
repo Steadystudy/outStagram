@@ -1,10 +1,15 @@
 import { SimplePost } from '@/model/posts';
 import Avatar from './Avatar';
-import PostIcon from './ui/icons/PostIcon';
 import Image from 'next/image';
-import { parseDate } from '@/util/date';
+import CommentForm from './CommentForm';
+import ActionBar from './ActionBar';
 
-export default function PostCard({ post }: { post: SimplePost }) {
+type Props = {
+  post: SimplePost;
+  priority: boolean;
+};
+
+export default function PostCard({ post, priority }: Props) {
   const { username, userImage, createdAt, image, text, likes } = post;
 
   return (
@@ -13,24 +18,16 @@ export default function PostCard({ post }: { post: SimplePost }) {
         <Avatar image={userImage} size="md" />
         <span className="font-bold">{username}</span>
       </div>
-      <Image src={image} alt={`photo by ${username}`} width={500} height={500} />
-      <div>
-        {PostIcon('heart')}
-        {PostIcon('bookmark')}
-      </div>
-      <div>
-        <p>{`${likes?.length ?? 0} ${likes?.length > 1 ? 'likes' : 'like'}`}</p>
-        <p>
-          <span>{username}</span>
-          {text}
-        </p>
-        <p>{parseDate(createdAt)}</p>
-      </div>
-      <form>
-        {PostIcon('smile')}
-        <input type="text" placeholder="Comment" />
-        <button>POST</button>
-      </form>
+      <Image
+        className="w-full object-cover aspect-auto border-y-2 border-gray-light max-h-[500px]"
+        src={image}
+        alt={`photo by ${username}`}
+        width={500}
+        height={500}
+        priority={priority}
+      />
+      <ActionBar likes={likes} username={username} text={text} createdAt={createdAt} />
+      <CommentForm />
     </article>
   );
 }
