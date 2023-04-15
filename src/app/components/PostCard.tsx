@@ -8,10 +8,10 @@ export default function PostCard({ post }: { post: SimplePost }) {
   const { username, userImage, createdAt, image, text, likes } = post;
 
   return (
-    <article>
-      <div>
-        <Avatar image={userImage} />
-        <span>{username}</span>
+    <article className="round-lg shadow-md border border-gray-light">
+      <div className="flex items-center p-2">
+        <Avatar image={userImage} size="md" />
+        <span className="font-bold">{username}</span>
       </div>
       <Image src={image} alt={`photo by ${username}`} width={500} height={500} />
       <div>

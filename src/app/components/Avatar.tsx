@@ -1,6 +1,8 @@
+type Size = 'sm' | 'md' | 'lg';
+
 type Props = {
   image?: string | null;
-  size?: 'sm' | 'md';
+  size?: Size;
   border?: true | false;
 };
 
@@ -9,7 +11,7 @@ export default function Avatar({ image, size = 'sm', border = true }: Props) {
     <div
       className={`rounded-full 
       ${border ? 'bg-gradient-to-tr from-yellow-light via-pink-light to-pink-hot' : ''}
-      ${size === 'sm' ? `p-[0.15rem] w-10 h-10` : `p-[0.2rem] w-16 h-16`}`}
+      ${getContainerSize(size)}`}
     >
       {/* eslint-disable-next-line @next/next/no-img-element */}
       <img
@@ -20,4 +22,17 @@ export default function Avatar({ image, size = 'sm', border = true }: Props) {
       />
     </div>
   );
+}
+
+function getContainerSize(size: Size): string {
+  switch (size) {
+    case 'sm':
+      return `p-[0.15rem] w-10 h-10`;
+    case 'md':
+      return `p-[0.15rem] w-12 h-12`;
+    case 'lg':
+      return `p-[0.2rem] w-16 h-16`;
+    default:
+      return '';
+  }
 }

@@ -5,7 +5,7 @@ export default function Sidebar({ user: { image, username, name } }: { user: Use
   return (
     <>
       <div className="flex items-center mt-8">
-        {image && <Avatar border={false} size="md" image={image} />}
+        {image && <Avatar border={false} size="lg" image={image} />}
         <div className="ml-4">
           <h3 className="font-bold">{username}</h3>
           <p className="text-gray-hot leading-4">{name}</p>
