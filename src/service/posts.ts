@@ -23,7 +23,8 @@ export async function getFollowingPostsOf(username: string) {
     .then((posts: FullPost[]) =>
       posts.map((post) => ({
         ...post,
-        image: urlFor(post.image || ''),
+        image: urlFor(post.image),
+        userImage: urlFor(post.userImage),
       })),
     );
 }
