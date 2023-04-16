@@ -14,9 +14,10 @@ export default function UserSearch() {
   };
 
   return (
-    <>
-      <form onSubmit={onSubmit}>
+    <section className="w-full flex flex-col items-center max-w-[850px] my-4">
+      <form className="w-full flex justify-center" onSubmit={onSubmit}>
         <input
+          className="w-full text-xl p-3 outline-none border border-gray-hot mb-4"
           type="text"
           autoFocus
           placeholder="Search for a username or name"
@@ -27,7 +28,7 @@ export default function UserSearch() {
       {error && <p>에러 발생</p>}
       {isLoading && <GridSpinner />}
       {!error && !isLoading && !users?.length && <p>검색 결과 없음</p>}
-      <ul>
+      <ul className="w-full">
         {users &&
           users?.map((user) => (
             <li key={user.name}>
@@ -35,6 +36,6 @@ export default function UserSearch() {
             </li>
           ))}
       </ul>
-    </>
+    </section>
   );
 }

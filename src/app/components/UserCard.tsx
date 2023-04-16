@@ -9,13 +9,15 @@ export default function UserCard({ user }: Props) {
   const { name, username, image, following, followers } = user;
 
   return (
-    <section>
+    <section className="w-full flex border border-gray-hot rounded-sm shadow-md p-4 mb-4">
       <Avatar image={image} size="lg" border={false} />
-      <div>
-        <p>{username}</p>
+      <div className="ml-4">
+        <p className="font-bold text-lg">{username}</p>
         <p>{name}</p>
-        <span>{followers > 1 ? `${followers} followers` : `${followers} follower`}</span>
-        <span>{`${following} following`}</span>
+        <p className="text-gray-hot">
+          {followers > 1 ? `${followers} followers` : `${followers} follower`}{' '}
+          {`${following} following`}
+        </p>
       </div>
     </section>
   );

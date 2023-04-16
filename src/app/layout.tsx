@@ -17,9 +17,9 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       <body className="w-full bg-neutral-50 overflow-auto">
         <AuthContext>
           <Header />
-          <SWRConfigContext>
-            <main className="w-full flex justify-center">{children}</main>
-          </SWRConfigContext>
+          <main className="w-full flex justify-center">
+            <SWRConfigContext>{children}</SWRConfigContext>
+          </main>
         </AuthContext>
         <div id="portal"></div>
       </body>
