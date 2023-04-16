@@ -3,6 +3,7 @@ import { ProfileUser } from '@/model/user';
 import { FormEvent, useState } from 'react';
 import useSWR from 'swr';
 import GridSpinner from './ui/GridSpinner';
+import UserCard from './UserCard';
 
 export default function UserSearch() {
   const [keyword, setKeyword] = useState('민상기');
@@ -30,7 +31,7 @@ export default function UserSearch() {
         {users &&
           users?.map((user) => (
             <li key={user.name}>
-              <p>{user.username}</p>
+              <UserCard user={user} />
             </li>
           ))}
       </ul>

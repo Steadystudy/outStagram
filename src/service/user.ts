@@ -53,6 +53,8 @@ export async function searchUser(keyword?: string) {
     .then((users: DetailUser[]) =>
       users.map((user) => ({
         ...user,
+        following: user.following ?? 0,
+        followers: user.followers ?? 0,
         image: urlFor(user.image || ''),
       })),
     );
