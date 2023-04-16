@@ -4,6 +4,7 @@ import useSWR from 'swr';
 import PostUserAvatar from './PostUserAvatar';
 import ActionBar from './ActionBar';
 import CommentForm from './CommentForm';
+import Avatar from './Avatar';
 
 type Props = {
   post: SimplePost;
@@ -15,22 +16,21 @@ export default function PostDetail({ post }: Props) {
   const comments = data?.comments;
 
   return (
-    <section className="flex">
-      <div className="relative">
-        <Image
-          src={image}
-          alt={`photo by ${username}`}
-          priority
-          width={500}
-          height={650}
-          className="object-cover"
-        />
+    <section className="flex w-full h-full">
+      <div className="relative basis-3/5">
+        <Image src={image} alt={`photo by ${username}`} priority fill sizes="600px" />
       </div>
-      <div>
+      <div className="flex flex-col basis-2/5">
         <PostUserAvatar userImage={userImage} username={username} />
-        <ul>
-          {comments?.map((comment) => (
-            <li key={id}>{comment.comment}</li>
+        <ul className="border-y border-gray-light h-full overflow-y-auto p-4 mb-1">
+          {comments?.map(({ image: commentUserImage, username: commentUsername, comment }) => (
+            <li key={id}>
+              <Avatar image={commentUserImage} size="sm" border={username === commentUsername} />
+              <div className="ml-2">
+                <span className="font-bold mr-1">{commentUsername}</span>
+                <span>{comment}</span>
+              </div>
+            </li>
           ))}
         </ul>
         <ActionBar likes={likes} username={username} createdAt={createdAt} />

@@ -21,7 +21,7 @@ export default function PostCard({ post, priority }: Props) {
   const [openModal, setOpenModal] = useState(false);
 
   return (
-    <article className="round-lg shadow-md border border-gray-light">
+    <article className="round-lg shadow-md border border-gray-light bg-white">
       {openModal && (
         <ModalPortal>
           <PostModal onClose={() => setOpenModal(false)}>

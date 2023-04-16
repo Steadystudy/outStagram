@@ -8,8 +8,8 @@ type Props = {
 
 export default function PostUserAvatar({ userImage, username }: Props) {
   return (
-    <div className="flex items-center p-2">
-      <Avatar image={userImage} size="md" border={false} />
+    <div className="flex items-center p-2 gap-2">
+      <Avatar image={userImage} size="md" />
       <span className="font-bold">{username}</span>
     </div>
   );
