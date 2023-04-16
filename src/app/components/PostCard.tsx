@@ -8,6 +8,8 @@ import ActionBar from './ActionBar';
 import { useState } from 'react';
 import ModalPortal from './ModalPortal';
 import PostModal from './PostModal';
+import PostDetail from './PostDetail';
+import PostUserAvatar from './PostUserAvatar';
 
 type Props = {
   post: SimplePost;
@@ -23,14 +25,11 @@ export default function PostCard({ post, priority }: Props) {
       {openModal && (
         <ModalPortal>
           <PostModal onClose={() => setOpenModal(false)}>
-            <div>포스트 상세페이지</div>
+            <PostDetail post={post}></PostDetail>
           </PostModal>
         </ModalPortal>
       )}
-      <div className="flex items-center p-2">
-        <Avatar image={userImage} size="md" />
-        <span className="font-bold">{username}</span>
-      </div>
+      <PostUserAvatar userImage={userImage} username={username} />
       <Image
         className="w-full object-cover aspect-auto border-y-2 border-gray-light max-h-[500px]"
         src={image}
