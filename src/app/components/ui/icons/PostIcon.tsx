@@ -1,9 +1,8 @@
 import React from 'react';
-import { AiOutlineHeart, AiFillHeart, AiOutlineSmile } from 'react-icons/ai';
+import { AiOutlineHeart, AiFillHeart, AiOutlineSmile, AiOutlineCloseSquare } from 'react-icons/ai';
 import { BsBookmark, BsFillBookmarkFill } from 'react-icons/bs';
-import { RiSearchFill } from 'react-icons/ri';
 
-type Props = 'heart' | 'heartFill' | 'bookmark' | 'bookmarkFill' | 'smile';
+type Props = 'heart' | 'heartFill' | 'bookmark' | 'bookmarkFill' | 'smile' | 'close';
 
 const ICON_STYLE = `text-2xl text-pink-hot`;
 
@@ -19,6 +18,8 @@ export default function PostIcon(name: Props) {
       return <BsFillBookmarkFill className={ICON_STYLE} />;
     case 'smile':
       return <AiOutlineSmile className={ICON_STYLE} />;
+    case 'close':
+      return <AiOutlineCloseSquare className="text-5xl text-pink-light" />;
     default:
       return;
   }
