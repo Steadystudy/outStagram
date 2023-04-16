@@ -19,7 +19,7 @@ export default async function HomePage() {
         <FollowingBar />
         <PostList />
       </div>
-      <div className="basis-1/4 ml-4">
+      <div className="basis-1/4 ml-8">
         <Sidebar user={user} />
       </div>
     </section>

@@ -17,7 +17,7 @@ export default function Header() {
   const user = session?.user;
   return (
     <header className="sticky top-0 bg-white z-10 border-b border-gray-hot px-6">
-      <div className="flex justify-between items-center">
+      <div className="flex justify-between items-center max-w-screen-xl mx-auto">
         <Link href="/">
           <h1 className="text-pink-light text-2xl font-bold">Outstagram</h1>
         </Link>

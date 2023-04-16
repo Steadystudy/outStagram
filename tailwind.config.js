@@ -11,6 +11,7 @@ module.exports = {
       'gray-hot': '#808080',
       'green-light': '#B8F3B8',
       white: '#fff',
+      'neutral-50': '#fafafa',
     },
   },
   plugins: [],

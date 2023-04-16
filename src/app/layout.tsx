@@ -14,11 +14,11 @@ export const metadata = {
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="en" className={sans.className}>
-      <body className="w-full max-w-screen-xl overflow-auto mx-auto">
+      <body className="w-full bg-neutral-50 overflow-auto">
         <AuthContext>
           <Header />
           <SWRConfigContext>
-            <main className="w-full flex justify-center min-h-full">{children}</main>
+            <main className="w-full flex justify-center">{children}</main>
           </SWRConfigContext>
         </AuthContext>
         <div id="portal"></div>
