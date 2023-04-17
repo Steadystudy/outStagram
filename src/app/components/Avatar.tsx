@@ -1,4 +1,4 @@
-type Size = 'sm' | 'md' | 'lg';
+type Size = 'sm' | 'md' | 'lg' | '2xl';
 
 type Props = {
   image?: string | null;
@@ -32,6 +32,8 @@ function getContainerSize(size: Size): string {
       return `p-[0.15rem] w-12 h-12`;
     case 'lg':
       return `p-[0.2rem] w-16 h-16`;
+    case '2xl':
+      return `p-[0.2rem] w-40 h-40`;
     default:
       return '';
   }

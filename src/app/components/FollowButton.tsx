@@ -9,16 +9,15 @@ type Props = {
 
 export default function FollowButton({ user }: Props) {
   const { data: loggedInUser } = useSWR<DetailUser>('/api/me');
-  const showButton = loggedInUser && loggedInUser.username !== user.username;
-  const following =
-    loggedInUser && loggedInUser.following.find((item) => item.username === user.username);
+  const showButton = loggedInUser && loggedInUser.id !== user.id;
+  const following = loggedInUser && loggedInUser.following.find((item) => item.id === user.id);
 
   const text = following ? 'Unfollow' : 'Follow';
   return (
     <>
       {showButton && (
         <button
-          className={`border-none text-white font-bold rounded-md p-4 leading-4 ${
+          className={`border-none text-white text-lg font-bold rounded-md p-3 leading-4 ${
             following ? 'bg-pink-hot' : 'bg-green-light'
           }`}
         >

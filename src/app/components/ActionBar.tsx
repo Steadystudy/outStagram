@@ -25,7 +25,7 @@ export default function ActionBar({ likes, username, text, createdAt }: Props) {
             {text}
           </p>
         )}
-        <p className="text-sm text-gray-hot">{parseDate(createdAt)}</p>
+        <p className="text-sm text-gray-hot my-1">{parseDate(createdAt)}</p>
       </div>
     </>
   );
