@@ -1,24 +1,20 @@
-export type User = {
+export type OAuthUser = {
+  id: string;
   name: string;
   username: string;
   email: string;
   image?: string;
 };
 
-export type OAuthUser = User & {
-  id: string;
-};
+export type SimpleUser = Pick<OAuthUser, 'id' | 'username' | 'image'>;
 
-export type SimpleUser = Pick<User, 'username' | 'image'>;
-
-export type DetailUser = User & {
-  id: string;
+export type DetailUser = OAuthUser & {
   following: SimpleUser[];
   followers: SimpleUser[];
   bookmarks: string;
 };
 
-export type ProfileUser = User & {
+export type ProfileUser = OAuthUser & {
   following: number;
   followers: number;
   posts: number;

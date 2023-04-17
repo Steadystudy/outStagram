@@ -20,9 +20,9 @@ export async function getUserByUsername(username: string) {
     .fetch(
       `*[_type=="user" && username=="${username}"][0]{
     ...,
-    "id": _id,
-    following[]->{username, image},
-    followers[]->{username, image},
+    "id":_id,
+    following[]->{"id":_id, username, image},
+    followers[]->{"id":_id, username, image},
     "bookmarks":bookmarks[]->_id,
   }`,
     )
@@ -46,6 +46,7 @@ export async function searchUser(keyword?: string) {
     .fetch(
       `*[_type == "user" ${query}]{
       ...,
+      "id":_id,
       "following": count(following),
       "followers": count(followers),
     }`,
@@ -65,6 +66,7 @@ export async function getUserForProfile(username: string) {
     .fetch(
       `*[_type=="user" && username == "${username}"][0]{
       ...,
+      "id":_id,
       "following": count(following),
       "followers": count(followers),
       "posts": count(*[_type=="post" && author->username == "${username}"])

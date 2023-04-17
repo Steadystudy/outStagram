@@ -21,7 +21,7 @@ export const authOptions: NextAuthOptions = {
       if (!email) {
         return false;
       }
-      addUser({ id, name: name || '', image, email, username: email?.split('@')[0] });
+      addUser({ id, name: name || '', image: image || '', email, username: email?.split('@')[0] });
       return true;
     },
     async session({ session }) {
