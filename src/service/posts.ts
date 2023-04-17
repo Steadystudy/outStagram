@@ -1,4 +1,4 @@
-import { Comment, FullPost } from '@/model/posts';
+import { Comment, SimplePost } from '@/model/posts';
 import { client, urlFor } from './sanity';
 
 const simplePostProjection = `
@@ -13,6 +13,14 @@ const simplePostProjection = `
   "createdAt": _createdAt
 `;
 
+function mapPosts(posts: SimplePost[]) {
+  return posts.map((post) => ({
+    ...post,
+    image: urlFor(post.image),
+    userImage: urlFor(post.userImage),
+  }));
+}
+
 export async function getFollowingPostsOf(username: string) {
   return client
     .fetch(
@@ -20,13 +28,7 @@ export async function getFollowingPostsOf(username: string) {
   || author._ref in *[_type == "user" && username == "${username}"].following[]._ref]
   | order(_createdAt desc){${simplePostProjection}}`,
     )
-    .then((posts: FullPost[]) =>
-      posts.map((post) => ({
-        ...post,
-        image: urlFor(post.image),
-        userImage: urlFor(post.userImage),
-      })),
-    );
+    .then(mapPosts);
 }
 
 export async function getPost(id: string) {
@@ -52,4 +54,40 @@ export async function getPost(id: string) {
         image: urlFor(comment.image),
       })),
     }));
+}
+
+export async function getPostsOf(username: string) {
+  return client
+    .fetch(
+      `*[_type == "post" && author->username == "${username}"]
+      | order(_createdAt desc) {
+        ${simplePostProjection}
+      }
+    `,
+    )
+    .then(mapPosts);
+}
+
+export async function getLikedOf(username: string) {
+  return client
+    .fetch(
+      `*[_type == "post" && "${username}" in likes[]->username]
+      | order(_createdAt desc) {
+        ${simplePostProjection}
+      }
+    `,
+    )
+    .then(mapPosts);
+}
+
+export async function getSavedPostsOf(username: string) {
+  return client
+    .fetch(
+      `*[_type == "post" && _id in *[_type == "user" && username=="${username}"][0].bookmarks[]._ref]
+      | order(_createdAt desc) {
+        ${simplePostProjection}
+      }
+    `,
+    )
+    .then(mapPosts);
 }
