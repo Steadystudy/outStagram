@@ -7,7 +7,7 @@ import UserCard from './UserCard';
 import useDebounce from '@/hooks/debounce';
 
 export default function UserSearch() {
-  const [keyword, setKeyword] = useState('민상기');
+  const [keyword, setKeyword] = useState('');
   const debouncedKeyword = useDebounce(keyword);
   const {
     data: users,
