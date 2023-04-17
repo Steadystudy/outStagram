@@ -1,5 +1,7 @@
+import UserPosts from '@/app/components/UserPosts';
 import UserProfile from '@/app/components/UserProfile';
 import { getUserForProfile } from '@/service/user';
+import { notFound } from 'next/navigation';
 
 type Props = {
   params: {
@@ -10,5 +12,14 @@ type Props = {
 export default async function Userpage({ params: { username } }: Props) {
   const user = await getUserForProfile(username);
 
-  return <UserProfile user={user} />;
+  if (!user) {
+    notFound();
+  }
+
+  return (
+    <>
+      <UserProfile user={user} />;
+      <UserPosts user={user} />
+    </>
+  );
 }
