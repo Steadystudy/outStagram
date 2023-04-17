@@ -21,4 +21,5 @@ export type DetailUser = User & {
 export type ProfileUser = User & {
   following: number;
   followers: number;
+  posts: number;
 };

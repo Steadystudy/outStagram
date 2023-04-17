@@ -59,3 +59,22 @@ export async function searchUser(keyword?: string) {
       })),
     );
 }
+
+export async function getUserForProfile(username: string) {
+  return client
+    .fetch(
+      `*[_type=="user" && username == "${username}"][0]{
+      ...,
+      "following": count(following),
+      "followers": count(followers),
+      "posts": count(*[_type=="post" && author->username == "${username}"])
+    }
+    `,
+    )
+    .then((user) => ({
+      ...user,
+      following: user.following ?? 0,
+      followers: user.followers ?? 0,
+      image: urlFor(user.image),
+    }));
+}
