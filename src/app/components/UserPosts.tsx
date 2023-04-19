@@ -16,9 +16,12 @@ export default function UserPosts({ user }: Props) {
 
   return (
     <section>
-      <ul>
+      <ul className="flex justify-center uppercase">
         {tabs.map(({ type }) => (
           <li
+            className={`mx-12 my-4 cursor-pointer border-b-gray-hot ${
+              tab === type && 'border-t font-bold'
+            }`}
             key={type}
             onClick={() => {
               setTab(type);
