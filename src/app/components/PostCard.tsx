@@ -10,6 +10,7 @@ import ModalPortal from './ModalPortal';
 import PostModal from './PostModal';
 import PostDetail from './PostDetail';
 import PostUserAvatar from './PostUserAvatar';
+import { signIn, useSession } from 'next-auth/react';
 
 type Props = {
   post: SimplePost;
@@ -19,9 +20,17 @@ type Props = {
 export default function PostCard({ post, priority }: Props) {
   const { username, userImage, createdAt, image, text, likes } = post;
   const [openModal, setOpenModal] = useState(false);
+  const { data: session } = useSession();
+
+  const handleOpenPost = () => {
+    if (!session?.user) {
+      return signIn();
+    }
+    setOpenModal(true);
+  };
 
   return (
-    <article className="round-lg shadow-md border border-gray-light bg-white">
+    <article className="bg-white border shadow-md round-lg border-gray-light">
       {openModal && (
         <ModalPortal>
           <PostModal onClose={() => setOpenModal(false)}>
@@ -37,7 +46,7 @@ export default function PostCard({ post, priority }: Props) {
         width={500}
         height={500}
         priority={priority}
-        onClick={() => setOpenModal(true)}
+        onClick={handleOpenPost}
       />
       <ActionBar likes={likes} username={username} text={text} createdAt={createdAt} />
       <CommentForm />
