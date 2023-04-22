@@ -16,6 +16,7 @@ const simplePostProjection = `
 function mapPosts(posts: SimplePost[]) {
   return posts.map((post) => ({
     ...post,
+    likes: post.likes ?? [],
     image: urlFor(post.image),
     userImage: urlFor(post.userImage),
   }));

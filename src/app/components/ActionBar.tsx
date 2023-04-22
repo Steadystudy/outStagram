@@ -4,6 +4,8 @@ import PostIcon from './ui/icons/PostIcon';
 import { useState } from 'react';
 import ToggleIcon from './ui/ToggleIcon';
 import { SimplePost } from '@/model/posts';
+import { useSession } from 'next-auth/react';
+import { useSWRConfig } from 'swr';
 
 type Props = {
   post: SimplePost;
@@ -11,15 +13,24 @@ type Props = {
 
 export default function ActionBar({ post }: Props) {
   const { id, likes, username, text, createdAt } = post;
-  const [liked, setLiked] = useState(false);
+  const { data: session } = useSession();
+  const user = session?.user;
+  const liked = user ? likes.includes(user.username) : false;
   const [bookmarked, setBookmarked] = useState(false);
+  const { mutate } = useSWRConfig();
+  const handleLike = (like: boolean) => {
+    fetch('api/likes', {
+      method: 'PUT',
+      body: JSON.stringify({ id, like }),
+    }).then(() => mutate('/api/posts'));
+  };
 
   return (
     <>
       <div className="flex justify-between px-4 my-2">
         <ToggleIcon
           toggled={liked}
-          onToggle={setLiked}
+          onToggle={handleLike}
           onIcon={PostIcon('heartFill')}
           offIcon={PostIcon('heart')}
         />
