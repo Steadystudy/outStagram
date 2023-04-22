@@ -11,7 +11,7 @@ export type SimpleUser = Pick<OAuthUser, 'id' | 'username' | 'image'>;
 export type DetailUser = OAuthUser & {
   following: SimpleUser[];
   followers: SimpleUser[];
-  bookmarks: string;
+  bookmarks: string[];
 };
 
 export type ProfileUser = OAuthUser & {
