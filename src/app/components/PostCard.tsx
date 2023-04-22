@@ -18,7 +18,7 @@ type Props = {
 };
 
 export default function PostCard({ post, priority }: Props) {
-  const { username, userImage, createdAt, image, text, likes } = post;
+  const { username, userImage, image } = post;
   const [openModal, setOpenModal] = useState(false);
   const { data: session } = useSession();
 
@@ -48,7 +48,7 @@ export default function PostCard({ post, priority }: Props) {
         priority={priority}
         onClick={handleOpenPost}
       />
-      <ActionBar likes={likes} username={username} text={text} createdAt={createdAt} />
+      <ActionBar post={post} />
       <CommentForm />
     </article>
   );
