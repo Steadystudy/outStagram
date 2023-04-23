@@ -1,7 +1,6 @@
 'use client';
 
 import { SimplePost } from '@/model/posts';
-import Avatar from './Avatar';
 import Image from 'next/image';
 import CommentForm from './CommentForm';
 import ActionBar from './ActionBar';
@@ -18,7 +17,7 @@ type Props = {
 };
 
 export default function PostCard({ post, priority }: Props) {
-  const { username, userImage, image } = post;
+  const { username, userImage, image, comments } = post;
   const [openModal, setOpenModal] = useState(false);
   const { data: session } = useSession();
 
@@ -48,7 +47,14 @@ export default function PostCard({ post, priority }: Props) {
         priority={priority}
         onClick={handleOpenPost}
       />
-      <ActionBar post={post} />
+      <ActionBar post={post}>
+        {comments > 1 && (
+          <button
+            className="my-2 font-bold text-sky-500"
+            onClick={() => setOpenModal(true)}
+          >{`View all ${comments} comments`}</button>
+        )}
+      </ActionBar>
       <CommentForm />
     </article>
   );
