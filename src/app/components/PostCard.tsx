@@ -10,6 +10,7 @@ import PostModal from './PostModal';
 import PostDetail from './PostDetail';
 import PostUserAvatar from './PostUserAvatar';
 import { signIn, useSession } from 'next-auth/react';
+import usePosts from '@/hooks/posts';
 
 type Props = {
   post: SimplePost;
@@ -20,6 +21,11 @@ export default function PostCard({ post, priority }: Props) {
   const { username, userImage, image, comments } = post;
   const [openModal, setOpenModal] = useState(false);
   const { data: session } = useSession();
+  const { postComment } = usePosts();
+
+  const handlePostComment = (comment: string) => {
+    postComment(post, comment);
+  };
 
   const handleOpenPost = () => {
     if (!session?.user) {
@@ -55,7 +61,7 @@ export default function PostCard({ post, priority }: Props) {
           >{`View all ${comments} comments`}</button>
         )}
       </ActionBar>
-      <CommentForm />
+      <CommentForm onPostComment={handlePostComment} />
     </article>
   );
 }
