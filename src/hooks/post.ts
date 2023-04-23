@@ -1,5 +1,5 @@
 import { Comment, FullPost } from '@/model/posts';
-import useSWR from 'swr';
+import useSWR, { useSWRConfig } from 'swr';
 
 async function addComment(id: string, comment: string) {
   return fetch('api/comments', {
@@ -10,6 +10,7 @@ async function addComment(id: string, comment: string) {
 
 export default function useFullPost(postId: string) {
   const { data: post, isLoading, error, mutate } = useSWR<FullPost>(`/api/posts/${postId}`);
+  const { mutate: GlobalMutate } = useSWRConfig();
 
   const postComment = (comment: Comment) => {
     if (!post) return;
@@ -23,7 +24,7 @@ export default function useFullPost(postId: string) {
       populateCache: false,
       revalidate: false,
       rollbackOnError: true,
-    });
+    }).then(() => GlobalMutate('/api/posts'));
   };
 
   return { post, isLoading, error, postComment };
