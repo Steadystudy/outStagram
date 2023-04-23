@@ -28,6 +28,7 @@ export async function getUserByUsername(username: string) {
     )
     .then((user: DetailUser) => ({
       ...user,
+      image: urlFor(user.image || ''),
       followers: user.followers.map((follower) => ({
         ...follower,
         image: urlFor(follower.image || ''),
