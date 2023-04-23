@@ -1,15 +1,37 @@
+import { FormEvent, useState } from 'react';
 import PostIcon from './ui/icons/PostIcon';
 
-export default function CommentForm() {
+type Props = {
+  onPostComment: (comment: string) => void;
+};
+
+export default function CommentForm({ onPostComment }: Props) {
+  const [comment, setComment] = useState('');
+  const buttonDisabled = comment.length === 0;
+
+  const handleSubmit = (e: FormEvent) => {
+    e.preventDefault();
+    onPostComment(comment);
+    setComment('');
+  };
+
   return (
-    <form className="flex items-center border-t px-4 border-gray-light">
+    <form onSubmit={handleSubmit} className="flex items-center px-4 border-t border-gray-light">
       {PostIcon('smile')}
       <input
-        className="w-full ml-2 p-4 border-none outline-none"
+        className="w-full p-4 ml-2 border-none outline-none"
         type="text"
         placeholder="Add a comment"
+        value={comment}
+        onChange={(e) => setComment(e.target.value)}
+        required
       />
-      <button>POST</button>
+      <button
+        disabled={buttonDisabled}
+        className={`font-bold ${buttonDisabled ? 'text-sky-300' : 'text-sky-500'}`}
+      >
+        POST
+      </button>
     </form>
   );
 }
