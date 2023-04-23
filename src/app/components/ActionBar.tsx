@@ -1,19 +1,18 @@
-'use client';
 import { parseDate } from '@/util/date';
 import PostIcon from './ui/icons/PostIcon';
-import { useState } from 'react';
 import ToggleIcon from './ui/ToggleIcon';
-import { SimplePost } from '@/model/posts';
-import { useSession } from 'next-auth/react';
+import { Comment, SimplePost } from '@/model/posts';
 import usePosts from '@/hooks/posts';
 import useMe from '@/hooks/me';
+import CommentForm from './CommentForm';
 
 type Props = {
   post: SimplePost;
   children?: React.ReactNode;
+  onComment: (comment: Comment) => void;
 };
 
-export default function ActionBar({ post, children }: Props) {
+export default function ActionBar({ post, children, onComment }: Props) {
   const { id: postId, likes, username, text, createdAt } = post;
   const { user, setBookmark } = useMe();
   const { setLike } = usePosts();
@@ -22,13 +21,15 @@ export default function ActionBar({ post, children }: Props) {
   const bookmarked = user ? user.bookmarks.includes(postId) : false;
 
   const handleLike = (like: boolean) => {
-    if (user) {
-      setLike(post, like, user.username);
-    }
+    user && setLike(post, like, user.username);
   };
 
   const handleBookmark = (bookmark: boolean) => {
-    setBookmark(postId, bookmark);
+    user && setBookmark(postId, bookmark);
+  };
+
+  const handleComment = (comment: string) => {
+    user && onComment({ comment, username: user.username, image: user.image });
   };
 
   return (
@@ -60,6 +61,7 @@ export default function ActionBar({ post, children }: Props) {
         {children}
         <p className="my-1 text-sm text-gray-hot">{parseDate(createdAt)}</p>
       </div>
+      <CommentForm onPostComment={handleComment} />
     </>
   );
 }

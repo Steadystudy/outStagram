@@ -1,8 +1,7 @@
 'use client';
 
-import { SimplePost } from '@/model/posts';
+import { Comment, SimplePost } from '@/model/posts';
 import Image from 'next/image';
-import CommentForm from './CommentForm';
 import ActionBar from './ActionBar';
 import { useState } from 'react';
 import ModalPortal from './ModalPortal';
@@ -22,8 +21,7 @@ export default function PostCard({ post, priority }: Props) {
   const [openModal, setOpenModal] = useState(false);
   const { data: session } = useSession();
   const { postComment } = usePosts();
-
-  const handlePostComment = (comment: string) => {
+  const handlePostComment = (comment: Comment) => {
     postComment(post, comment);
   };
 
@@ -53,7 +51,7 @@ export default function PostCard({ post, priority }: Props) {
         priority={priority}
         onClick={handleOpenPost}
       />
-      <ActionBar post={post}>
+      <ActionBar post={post} onComment={handlePostComment}>
         {comments > 1 && (
           <button
             className="my-2 font-bold text-sky-500"
@@ -61,7 +59,6 @@ export default function PostCard({ post, priority }: Props) {
           >{`View all ${comments} comments`}</button>
         )}
       </ActionBar>
-      <CommentForm onPostComment={handlePostComment} />
     </article>
   );
 }
