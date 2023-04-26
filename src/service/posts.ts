@@ -52,7 +52,7 @@ export async function getPost(id: string) {
       userImage: urlFor(post.userImage),
       comments: post.comments.map((comment: Comment) => ({
         ...comment,
-        image: urlFor(comment.image),
+        image: urlFor(comment.image || ''),
       })),
     }));
 }
