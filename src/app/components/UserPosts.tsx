@@ -3,6 +3,7 @@
 import { ProfileUser } from '@/model/user';
 import { useState } from 'react';
 import PostGrid from './PostGrid';
+import { CacheKeysContext } from '@/context/CacheKeysContext';
 
 type Props = {
   user: ProfileUser;
@@ -10,7 +11,7 @@ type Props = {
 
 const tabs = [{ type: 'posts' }, { type: 'liked' }, { type: 'saved' }];
 export default function UserPosts({ user }: Props) {
-  const { image, username, name, followers, following, posts } = user;
+  const { username } = user;
 
   const [tab, setTab] = useState(tabs[0].type);
 
@@ -31,7 +32,9 @@ export default function UserPosts({ user }: Props) {
           </li>
         ))}
       </ul>
-      <PostGrid username={username} query={tab} />
+      <CacheKeysContext.Provider value={{ postsKey: `/api/users/${username}/${tab}` }}>
+        <PostGrid />
+      </CacheKeysContext.Provider>
     </section>
   );
 }
