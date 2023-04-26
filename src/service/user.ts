@@ -85,7 +85,7 @@ export async function getUserForProfile(username: string) {
 export async function addBookmark(userId: string, postId: string) {
   return client
     .patch(userId) //
-    .setIfMissing({ likes: [] })
+    .setIfMissing({ bookmarks: [] })
     .append('bookmarks', [
       {
         _ref: postId,
@@ -100,4 +100,28 @@ export async function removeBookmark(userId: string, postId: string) {
     .patch(userId)
     .unset([`bookmarks[_ref=="${postId}"]`])
     .commit();
+}
+
+export async function follow(myId: string, targetId: string) {
+  return client
+    .transaction()
+    .patch(myId, (user) =>
+      user
+        .setIfMissing({ following: [] })
+        .append('following', [{ _ref: targetId, _type: 'reference' }]),
+    )
+    .patch(targetId, (user) =>
+      user
+        .setIfMissing({ followers: [] })
+        .append('followers', [{ _ref: myId, _type: 'reference' }]),
+    )
+    .commit({ autoGenerateArrayKeys: true });
+}
+
+export async function unfollow(myId: string, targetId: string) {
+  return client
+    .transaction()
+    .patch(myId, (user) => user.unset([`following[_ref=="${targetId}"]`]))
+    .patch(targetId, (user) => user.unset([`followers[_ref=="${myId}"]`]))
+    .commit({ autoGenerateArrayKeys: true });
 }
