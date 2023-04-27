@@ -1,5 +1,5 @@
 import { Comment, SimplePost } from '@/model/posts';
-import { client, urlFor } from './sanity';
+import { accessURL, client, urlFor } from './sanity';
 
 const simplePostProjection = `
   ...,
@@ -124,4 +124,34 @@ export async function addComment(postId: string, userId: string, comment: string
       },
     ])
     .commit({ autoGenerateArrayKeys: true });
+}
+
+export async function createPost(userId: string, text: string, file: Blob) {
+  // Refactor: 추후 sanity에서 Next 13 버전 Route Handler 지원되면 바꿔야함
+  return fetch(accessURL, {
+    method: 'POST',
+    headers: {
+      'content-type': file.type,
+      authorization: `Bearer ${process.env.SANITY_SECRET_TOKEN}`,
+    },
+    body: file,
+  })
+    .then((res) => res.json())
+    .then((result) => {
+      return client.create(
+        {
+          _type: 'post',
+          author: { _ref: userId },
+          photo: { asset: { _ref: result.document._id } },
+          comments: [
+            {
+              commnet: text,
+              author: { _ref: userId, _type: 'reference' },
+            },
+          ],
+          likes: [],
+        },
+        { autoGenerateArrayKeys: true },
+      );
+    });
 }
