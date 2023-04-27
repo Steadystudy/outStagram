@@ -2,9 +2,11 @@
 
 import { DetailUser } from '@/model/user';
 import PostUserAvatar from './PostUserAvatar';
-import { ChangeEvent, DragEvent, useState } from 'react';
+import { ChangeEvent, DragEvent, FormEvent, useRef, useState } from 'react';
 import { FaRegFileImage } from 'react-icons/fa';
 import Image from 'next/image';
+import { useRouter } from 'next/navigation';
+import GridSpinner from './ui/GridSpinner';
 
 type Props = {
   user: DetailUser;
@@ -14,6 +16,10 @@ export default function NewPost({ user }: Props) {
   const { username, image } = user;
   const [dragging, setDragging] = useState(false);
   const [file, setFile] = useState<File>();
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState<string>();
+  const textRef = useRef<HTMLTextAreaElement>(null);
+  const router = useRouter();
 
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
     e.preventDefault();
@@ -43,10 +49,38 @@ export default function NewPost({ user }: Props) {
     }
   };
 
+  const handleSubmit = (e: FormEvent) => {
+    e.preventDefault();
+    if (!file) return setError('이미지를 넣어주세요');
+
+    setLoading(true);
+    const formData = new FormData();
+    formData.append('file', file);
+    formData.append('text', textRef.current?.value ?? '');
+
+    fetch('/api/posts/', { method: 'POST', body: formData })
+      .then((res) => {
+        console.log(res);
+        if (!res.ok) {
+          setError(`${res.status} ${res.statusText}`);
+          return;
+        }
+        router.push('/');
+      })
+      .catch((err) => setError(err.toString()))
+      .finally(() => setLoading(false));
+  };
+
   return (
     <section className="flex flex-col items-center w-full max-w-xl mt-6">
+      {loading && (
+        <div className="absolute inset-0 z-20 text-center bg-sky-200 pt-[30%] opacity-50">
+          <GridSpinner />
+        </div>
+      )}
+      {error && <p className="w-full text-center text-red-600 bg-red-100">{error}</p>}
       <PostUserAvatar username={username} userImage={image ?? ''} />
-      <form className="flex flex-col w-full mt-2">
+      <form className="flex flex-col w-full mt-2" onSubmit={handleSubmit}>
         <input
           className="hidden"
           name="uploadInput"
@@ -93,8 +127,11 @@ export default function NewPost({ user }: Props) {
           required
           rows={10}
           placeholder="Write a caption..."
+          ref={textRef}
         />
-        <button className="font-bold bg-pink-light">Publish</button>
+        <button className="font-bold bg-pink-light" type="submit">
+          Publish
+        </button>
       </form>
     </section>
   );
