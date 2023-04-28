@@ -1,18 +1,18 @@
-import { User } from '@/model/user';
+import { OAuthUser } from '@/model/user';
 import Avatar from './Avatar';
 
-export default function Sidebar({ user: { image, username, name } }: { user: User }) {
+export default function Sidebar({ user: { image, username, name } }: { user: OAuthUser }) {
   return (
     <>
       <div className="flex items-center mt-8">
         {image && <Avatar border={false} size="lg" image={image} />}
         <div className="ml-4">
           <h3 className="font-bold">{username}</h3>
-          <p className="text-gray-hot leading-4">{name}</p>
+          <p className="leading-4 text-gray-hot">{name}</p>
         </div>
       </div>
-      <p className="text-gray-hot mt-4">About ﹒ Help ﹒ API</p>
-      <p className="font-bold mt-4">@Copyright OUTSTAGRAM from METAL</p>
+      <p className="mt-4 text-gray-hot">About ﹒ Help ﹒ API</p>
+      <p className="mt-4 font-bold">@Copyright OUTSTAGRAM from METAL</p>
     </>
   );
 }
