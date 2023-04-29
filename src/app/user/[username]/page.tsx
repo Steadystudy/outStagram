@@ -3,6 +3,7 @@ import UserProfile from '@/app/components/UserProfile';
 import { getUserForProfile } from '@/service/user';
 import { Metadata } from 'next';
 import { notFound } from 'next/navigation';
+import { cache } from 'react';
 
 type Props = {
   params: {
@@ -10,8 +11,10 @@ type Props = {
   };
 };
 
+const getUser = cache(async (username: string) => getUserForProfile(username));
+
 export default async function Userpage({ params: { username } }: Props) {
-  const user = await getUserForProfile(username);
+  const user = await getUser(username);
 
   if (!user) {
     notFound();
@@ -26,7 +29,7 @@ export default async function Userpage({ params: { username } }: Props) {
 }
 
 export async function generateMetadata({ params: { username } }: Props): Promise<Metadata> {
-  const user = await getUserForProfile(username);
+  const user = await getUser(username);
 
   return {
     title: `${user?.name} (@${user?.username}) • Outstagram Posts`,
