@@ -3,6 +3,12 @@ import { getServerSession } from 'next-auth/next';
 import { authOptions } from '../../../pages/api/auth/[...nextauth]';
 import { redirect } from 'next/navigation';
 import Signin from '@/app/components/Signin';
+import { Metadata } from 'next';
+
+export const metadata: Metadata = {
+  title: 'Signin',
+  description: 'Signup or Login to Instagram',
+};
 
 type Props = {
   searchParams: {
