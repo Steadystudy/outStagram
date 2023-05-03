@@ -1,38 +1,46 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# 인스타그램 클론 코딩
 
-## Getting Started
+배포 사이트: [Outstagram](outstagram-drab.vercel.app)
 
-First, run the development server:
+## 기술 스택
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-```
+<img src="https://img.shields.io/badge/Next.js-000000?style=for-the-badge&logo=Next.js&logoColor=white">
+<img src="https://img.shields.io/badge/typescript-3178C6?style=for-the-badge&logo=typescript&logoColor=white">
+<img src="https://img.shields.io/badge/tailwindcss-06B6D4?style=for-the-badge&logo=TailwindCss&logoColor=white">
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Headless CMS: Sanity.io
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## 왜 Next 13인가?
 
-[API routes](https://nextjs.org/docs/api-routes/introduction) can be accessed on [http://localhost:3000/api/hello](http://localhost:3000/api/hello). This endpoint can be edited in `pages/api/hello.ts`.
+- 프론트엔드에서 Full Stack으로 프로젝트를 만들 수 있고, SSR, CSR, 하이브리드 렌더링을 지원하여 Next를 선택했습니다.
 
-The `pages/api` directory is mapped to `/api/*`. Files in this directory are treated as [API routes](https://nextjs.org/docs/api-routes/introduction) instead of React pages.
+- 서버 컴포넌트와 클라이언트 컴포넌트의 분리, Turbopack, Layout, api route 등 12버전보다 많은 부분이 개선되어 13버전을 선택했습니다.
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+## sanity를 사용한 이유?
 
-## Learn More
+- WordPress나 Strapi보다 더 높은 점유율을 차지하고, 2022 JAMStack Community Survey에서 높은 만족도를 보이고 있습니다.
+- 오픈소스는 아니지만 Headless CMS를 지원해준지 오래되어 안정적입니다.
 
-To learn more about Next.js, take a look at the following resources:
+## NextAuth.js(Auth.js)를 사용한 이유?
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+- 자체적으로 로그인 데이터를 관리하기 어려워서 NextAuth를 사용해 소셜로그인으로 구현하였습니다.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+## 무엇을 중점으로 하였는가?
 
-## Deploy on Vercel
+- Next 13버전이 실험 버전이기 때문에 구현되지 않는 것들이 몇 가지 있어서 13버전 공식문서와 Next 깃헙 이슈를 중점적으로 확인하였습니다.
+- 컴포넌트를 만들 때 서버에서 동작하여야 하는지, 클라이언트에서 동작하여야 하는지 생각하며 만들었습니다.
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+## 기능 목록
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+- 소셜 로그인 (구글)
+- 포스트 생성
+- 포스트 상세 페이지 모달 형식
+- 유저 팔로잉
+- 포스트 좋아요, 북마크, 코멘트
+- 사용자 검색
+- 사용자 상세 페이지
+
+## 앞으로 추가 사항
+
+- 포스트 삭제
+- 다양한 소셜 로그인 추가
