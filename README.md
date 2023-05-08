@@ -1,6 +1,6 @@
 # 인스타그램 클론 코딩
 
-배포 사이트: [Outstagram](outstagram-drab.vercel.app)
+배포 사이트: [Outstagram](https://outstagram-drab.vercel.app)
 
 ## 기술 스택
 
