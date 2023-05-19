@@ -145,7 +145,7 @@ export async function createPost(userId: string, text: string, file: Blob, isPri
           photo: { asset: { _ref: result.document._id } },
           comments: [
             {
-              commnet: text,
+              comment: text,
               author: { _ref: userId, _type: 'reference' },
             },
           ],
