@@ -17,6 +17,11 @@ export default {
       type: 'image',
     },
     {
+      title: 'Private',
+      name: 'private',
+      type: 'boolean',
+    },
+    {
       title: 'Likes',
       name: 'likes',
       type: 'array',
