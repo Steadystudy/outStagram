@@ -12,7 +12,7 @@ export default function Signin({ providers, callbackUrl }: Props) {
   return (
     <>
       {Object.values(providers).map(({ id, name }) => (
-        <div key={name}>
+        <div key={name} className="mt-40">
           <StyledButton
             size="xl"
             onClick={() => signIn(id, { callbackUrl })}

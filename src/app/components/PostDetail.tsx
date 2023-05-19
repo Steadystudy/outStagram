@@ -23,10 +23,10 @@ export default function PostDetail({ post }: Props) {
         <PostUserAvatar userImage={userImage} username={username} />
         <ul className="h-full p-4 mb-1 overflow-y-auto border-y border-gray-light">
           {comments?.map(({ image: commentUserImage, username: commentUsername, comment }, idx) => (
-            <li key={commentUsername + idx}>
+            <li key={commentUsername + idx} className="flex items-center w-full">
               <Avatar image={commentUserImage} size="sm" border={commentUsername === username} />
-              <div className="ml-2">
-                <span className="mr-1 font-bold">{commentUsername}</span>
+              <span className="ml-1 font-bold max-w-[30%]">{commentUsername}</span>
+              <div className="pl-2 max-w-[40%]">
                 <span>{comment}</span>
               </div>
             </li>
