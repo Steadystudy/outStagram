@@ -19,6 +19,7 @@ export default function NewPost({ user }: Props) {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string>();
   const textRef = useRef<HTMLTextAreaElement>(null);
+  const privateRef = useRef<HTMLInputElement>(null);
   const router = useRouter();
 
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
@@ -57,10 +58,10 @@ export default function NewPost({ user }: Props) {
     const formData = new FormData();
     formData.append('file', file);
     formData.append('text', textRef.current?.value ?? '');
+    formData.append('private', privateRef.current?.checked.toString() ?? 'false');
 
     fetch('/api/posts/', { method: 'POST', body: formData })
       .then((res) => {
-        console.log(res);
         if (!res.ok) {
           setError(`${res.status} ${res.statusText}`);
           return;
@@ -80,7 +81,7 @@ export default function NewPost({ user }: Props) {
       )}
       {error && <p className="w-full text-center text-red-600 bg-red-100">{error}</p>}
       <PostUserAvatar username={username} userImage={image ?? ''} />
-      <form className="flex flex-col w-full mt-2" onSubmit={handleSubmit}>
+      <form className="flex flex-col items-center w-full mt-2" onSubmit={handleSubmit}>
         <input
           className="hidden"
           name="uploadInput"
@@ -121,7 +122,7 @@ export default function NewPost({ user }: Props) {
           )}
         </label>
         <textarea
-          className="mt-4 text-lg border outline-none border-gray-light"
+          className="w-full mt-4 text-lg border outline-none border-gray-light"
           name="text"
           id="input-text"
           required
@@ -129,7 +130,9 @@ export default function NewPost({ user }: Props) {
           placeholder="Write a caption..."
           ref={textRef}
         />
-        <button className="font-bold bg-pink-light" type="submit">
+        <label htmlFor="private">비공개</label>
+        <input id="private" type="checkbox" ref={privateRef} />
+        <button className="w-20 h-10 mt-4 font-bold rounded-md bg-pink-light" type="submit">
           Publish
         </button>
       </form>

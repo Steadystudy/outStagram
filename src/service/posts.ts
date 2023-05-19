@@ -126,7 +126,7 @@ export async function addComment(postId: string, userId: string, comment: string
     .commit({ autoGenerateArrayKeys: true });
 }
 
-export async function createPost(userId: string, text: string, file: Blob) {
+export async function createPost(userId: string, text: string, file: Blob, isPrivate: boolean) {
   // Refactor: 추후 sanity에서 Next 13 버전 Route Handler 지원되면 바꿔야함
   return fetch(accessURL, {
     method: 'POST',
@@ -150,6 +150,7 @@ export async function createPost(userId: string, text: string, file: Blob) {
             },
           ],
           likes: [],
+          private: isPrivate,
         },
         { autoGenerateArrayKeys: true },
       );

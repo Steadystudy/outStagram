@@ -14,12 +14,13 @@ export async function POST(req: NextRequest) {
     const form = await req.formData();
     const text = form.get('text')?.toString();
     const file = form.get('file') as Blob;
+    const isPrivate = form.get('private') === 'true';
 
     if (!text || !file) {
       return new Response('Bad Request', { status: 400 });
     }
 
-    return createPost(user.id, text, file) //
+    return createPost(user.id, text, file, isPrivate) //
       .then((res) => NextResponse.json(res));
   });
 }
