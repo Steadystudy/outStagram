@@ -17,4 +17,5 @@ export type FullPost = {
   comments: Comment[];
   text: string;
   createdAt: string;
+  private: boolean;
 };
