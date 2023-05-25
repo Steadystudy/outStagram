@@ -56,7 +56,7 @@ export default function PostCard({ post, priority }: Props) {
           <button
             className="my-2 font-bold text-sky-500"
             onClick={() => setOpenModal(true)}
-          >{`View all ${comments} comments`}</button>
+          >{`View all ${comments - 1} comments`}</button>
         )}
       </ActionBar>
     </article>

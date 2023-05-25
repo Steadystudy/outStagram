@@ -12,12 +12,19 @@ type Props = {
 export default function PostDetail({ post }: Props) {
   const { id, userImage, username, image } = post;
   const { post: data, postComment } = useFullPost(id);
-  const comments = data?.comments;
+  const comments = data?.comments.slice(1);
 
   return (
     <section className="flex w-full h-full">
       <div className="relative basis-3/5">
-        <Image src={image} alt={`photo by ${username}`} priority fill sizes="600px" />
+        <Image
+          src={image}
+          alt={`photo by ${username}`}
+          priority
+          className="object-cover"
+          fill
+          sizes="600px"
+        />
       </div>
       <div className="flex flex-col basis-2/5">
         <PostUserAvatar userImage={userImage} username={username} />
