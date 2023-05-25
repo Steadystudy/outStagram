@@ -17,11 +17,14 @@ export default function PostList() {
         {posts &&
           posts
             .filter((post) => post.private === false)
-            .map((post, idx) => (
-              <li key={post.id} className="mb-4">
-                <PostCard post={post} priority={idx < 2}></PostCard>
-              </li>
-            ))}
+            .map(
+              (post, idx) =>
+                !post.private && (
+                  <li key={post.id} className="mb-4">
+                    <PostCard post={post} priority={idx < 2}></PostCard>
+                  </li>
+                ),
+            )}
       </ul>
     </section>
   );
