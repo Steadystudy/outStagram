@@ -2,7 +2,7 @@ import { getProviders } from 'next-auth/react';
 import { getServerSession } from 'next-auth/next';
 import { authOptions } from '../../../pages/api/auth/[...nextauth]';
 import { redirect } from 'next/navigation';
-import Signin from '@/app/components/Signin';
+import Signin from '@/components/Signin';
 import { Metadata } from 'next';
 
 export const metadata: Metadata = {

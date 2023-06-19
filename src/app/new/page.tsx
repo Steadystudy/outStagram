@@ -1,6 +1,6 @@
 import { getServerSession } from 'next-auth';
 import { redirect } from 'next/navigation';
-import NewPost from '../components/NewPost';
+import NewPost from '../../components/NewPost';
 import { authOptions } from '@/pages/api/auth/[...nextauth]';
 import { Metadata } from 'next';
 

@@ -1,5 +1,5 @@
 import AuthContext from '@/context/AuthContext';
-import Header from './components/Header';
+import Header from '../components/Header';
 import './globals.css';
 import { Noto_Sans } from 'next/font/google';
 import SWRConfigContext from '@/context/SWRConfigContext';

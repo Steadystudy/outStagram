@@ -1,7 +1,7 @@
 import { getServerSession } from 'next-auth';
-import FollowingBar from './components/FollowingBar';
-import PostList from './components/PostList';
-import Sidebar from './components/Sidebar';
+import FollowingBar from '../components/FollowingBar';
+import PostList from '../components/PostList';
+import Sidebar from '../components/Sidebar';
 import { redirect } from 'next/navigation';
 import { authOptions } from '@/pages/api/auth/[...nextauth]';
 
