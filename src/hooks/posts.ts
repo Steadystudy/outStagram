@@ -1,7 +1,7 @@
 import { useCacheKeys } from '@/context/CacheKeysContext';
 import { Comment, SimplePost } from '@/model/posts';
 import { useCallback } from 'react';
-import useSWR from 'swr';
+import useSWR, { useSWRConfig } from 'swr';
 
 async function updateLike(id: string, like: boolean) {
   return fetch('/api/likes', {
@@ -15,6 +15,12 @@ async function addComment(id: string, comment: string) {
     method: 'POST',
     body: JSON.stringify({ id, comment }),
   }).then((res) => res.json());
+}
+
+async function deletePost(id: string): Promise<any> {
+  return fetch(`/api/posts/${id}`, {
+    method: 'DELETE',
+  });
 }
 
 export default function usePosts() {
@@ -57,5 +63,19 @@ export default function usePosts() {
     [posts, mutate],
   );
 
-  return { posts, isLoading, error, setLike, postComment };
+  const removeSpecificPost = useCallback(
+    (postId: string) => {
+      const newPosts = posts?.filter((p) => p.id !== postId);
+
+      return mutate(deletePost(postId), {
+        optimisticData: newPosts,
+        populateCache: false,
+        revalidate: true,
+        rollbackOnError: true,
+      });
+    },
+    [posts, mutate],
+  );
+
+  return { posts, isLoading, error, setLike, postComment, removeSpecificPost };
 }

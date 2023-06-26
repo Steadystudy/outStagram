@@ -156,3 +156,7 @@ export async function createPost(userId: string, text: string, file: Blob, isPri
       );
     });
 }
+
+export function deletePost(postId: string) {
+  return client.delete(postId);
+}

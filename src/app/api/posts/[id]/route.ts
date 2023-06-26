@@ -1,4 +1,4 @@
-import { getPost } from '@/service/posts';
+import { deletePost, getPost } from '@/service/posts';
 import { withSessionUser } from '@/util/session';
 import { NextRequest, NextResponse } from 'next/server';
 
@@ -11,4 +11,8 @@ export async function GET(request: NextRequest, context: Context) {
     return getPost(context.params.id) //
       .then((res) => NextResponse.json(res));
   });
+}
+
+export async function DELETE(req: NextRequest, context: Context) {
+  return deletePost(context.params.id);
 }
