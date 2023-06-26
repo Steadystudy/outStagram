@@ -1,5 +1,5 @@
 import { OAuthUser } from '@/model/user';
-import Avatar from './Avatar';
+import Avatar from '../Avatar';
 
 export default function Sidebar({ user: { image, username, name } }: { user: OAuthUser }) {
   return (
